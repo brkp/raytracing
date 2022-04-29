@@ -7,8 +7,13 @@ name = "canvas"
 version = "0.1.0"
 
 [[package]]
+name = "cgmath"
+version = "0.1.0"
+
+[[package]]
 name = "raytracing"
 version = "0.1.0"
 dependencies = [
  "canvas",
+ "cgmath",
 ]
