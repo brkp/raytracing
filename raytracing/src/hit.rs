@@ -1,6 +1,7 @@
 use cgmath::{Point3, Vec3};
 use crate::ray::Ray;
 
+#[derive(Debug)]
 pub struct HitRecord {
     pub t: f32,
     pub p: Point3,
