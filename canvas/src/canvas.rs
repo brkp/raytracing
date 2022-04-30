@@ -28,7 +28,7 @@ impl Canvas {
         );
     }
 
-    pub fn save(&self, path: &str) -> std::io::Result<()> {
+    pub fn export(&self, path: &str) -> std::io::Result<()> {
         self.image.export(path)
     }
 }
