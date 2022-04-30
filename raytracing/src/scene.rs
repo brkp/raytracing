@@ -1,8 +1,9 @@
-use canvas::Canvas;
+use canvas::{color::Color, Canvas};
 use cgmath::Vec3;
 
 use crate::camera::Camera;
 use crate::hit::{HitRecord, Hittable};
+use crate::ray::Ray;
 
 pub struct Scene {
     pub camera: Camera,
@@ -37,6 +38,37 @@ impl Scene {
             camera: cam,
             shapes: vec![],
             viewport,
+        }
+    }
+
+    fn trace_ray(&self, ray: &Ray) -> Option<Color> {
+        let mut closest_t = f32::INFINITY;
+        let mut closest_shape: Option<&Box<dyn Hittable>> = None;
+
+        for shape in &self.shapes {
+            if let Some(hit_record) = shape.hit(ray, 0.0, f32::INFINITY) {
+                if closest_t > hit_record.t {
+                    closest_t = hit_record.t;
+                    closest_shape = Some(shape);
+                }
+            }
+        }
+
+        if let Some(shape) = closest_shape {
+            return Some(shape.get_color());
+        }
+
+        None
+    }
+
+    pub fn render(&self, canvas: &mut Canvas) {
+        for y in -canvas.hh..=canvas.hh {
+            for x in -canvas.hw..=canvas.hw {
+                let ray = Ray::new(self.camera.pos, self.viewport.translate(x, y, &canvas));
+                if let Some(color) = self.trace_ray(&ray) {
+                    canvas.set_pixel(x, y, color)
+                }
+            }
         }
     }
 }
