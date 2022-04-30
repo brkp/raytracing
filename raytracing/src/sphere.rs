@@ -17,6 +17,10 @@ impl Sphere {
 }
 
 impl Hittable for Sphere {
+    fn get_color(&self) -> Color {
+        self.color
+    }
+
     fn hit(&self, ray: &Ray, t_min: f32, t_max: f32) -> Option<HitRecord> {
         let oc = ray.origin - self.pos;
 
