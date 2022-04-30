@@ -72,3 +72,11 @@ impl ops::Mul<f32> for Vec3 {
         }
     }
 }
+
+impl ops::Div<f32> for Vec3 {
+    type Output = Self;
+
+    fn div(self, rhs: f32) -> Self::Output {
+        self * (1.0 / rhs)
+    }
+}
