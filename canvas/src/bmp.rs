@@ -4,9 +4,9 @@ use std::fs::File;
 use std::io::{Write, BufWriter};
 
 pub struct Image {
-    w: u32,
-    h: u32,
-    data: Vec<Color>,
+    pub w: u32,
+    pub h: u32,
+    pub data: Vec<Color>,
 }
 
 impl Image {
