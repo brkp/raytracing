@@ -14,7 +14,7 @@ pub const GREEN: Color = Color { r: 0x00, g: 0xff, b: 0x00 };
 pub const  BLUE: Color = Color { r: 0x00, g: 0x00, b: 0xff };
 
 impl Color {
-    pub fn new(r: f64, g: f64, b: f64) -> Self {
+    pub fn new(r: f32, g: f32, b: f32) -> Self {
         Self {
             r: (255.0 * r) as u8,
             g: (255.0 * g) as u8,
@@ -55,14 +55,14 @@ impl ops::Sub for Color {
     }
 }
 
-impl ops::Mul<f64> for Color {
+impl ops::Mul<f32> for Color {
     type Output = Self;
 
-    fn mul(self, rhs: f64) -> Self::Output {
+    fn mul(self, rhs: f32) -> Self::Output {
         Self {
-            r: (self.r as f64 * rhs).clamp(0.0, 255.0) as u8,
-            g: (self.g as f64 * rhs).clamp(0.0, 255.0) as u8,
-            b: (self.b as f64 * rhs).clamp(0.0, 255.0) as u8,
+            r: (self.r as f32 * rhs).clamp(0.0, 255.0) as u8,
+            g: (self.g as f32 * rhs).clamp(0.0, 255.0) as u8,
+            b: (self.b as f32 * rhs).clamp(0.0, 255.0) as u8,
         }
     }
 }
