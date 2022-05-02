@@ -2,6 +2,7 @@
 
 mod camera;
 mod hit;
+mod rand;
 mod ray;
 mod scene;
 mod sphere;
@@ -27,6 +28,11 @@ fn main() {
 
     scene.add_shape(Sphere::new(Point3::new(0.0, 0.0, -1.0), 0.5));
     scene.add_shape(Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0));
+
+    rand::seed(727272727);
+    for i in 0..10 {
+        println!("{}", rand::f64(0.0, 1.0));
+    }
 
     canvas.clear(color::Color::rgb(0x6495ed));
     scene.render(&mut canvas);
