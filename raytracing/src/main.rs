@@ -27,7 +27,6 @@ fn main() {
     mscene.shapes.push(Box::new(sphere::Sphere::new(
         Point3::new(0.0, 0.0, -1.0),
         0.5,
-        color::RED,
     )));
 
     canvas.clear(color::Color::rgb(0x6495ed));
