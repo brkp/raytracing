@@ -24,23 +24,27 @@ impl Hittable for Sphere {
         let c: f32 = oc.len2() - self.rad.powf(2.0);
         let d: f32 = h * h - a * c;
 
-        if d >= 0.0 {
-            let d = d.sqrt();
-            let r = (-h - d) / a;
+        if d < 0.0 {
+            return None;
+        }
 
-            if (t_min..=t_max).contains(&r) {
-                let r = (-h + d) / a;
-                if (t_min..=t_max).contains(&r) {
-                    let p = ray.at(r);
-                    return Some(HitRecord {
-                        t: r,
-                        p,
-                        n: (p - self.pos) / self.rad,
-                    });
-                }
+        let d = d.sqrt();
+        let mut r = (-h - d) / a;
+
+        if t_min > r || t_max < r {
+            r = (-h + d) / a;
+            if t_min > r || t_max < r {
+                return None;
             }
         }
 
-        None
+        let p = ray.at(r);
+        let mut h = HitRecord::default();
+
+        h.t = r;
+        h.p = p;
+        h.set_face_normal(ray, &((p - self.pos) / self.rad));
+
+        return Some(h);
     }
 }
