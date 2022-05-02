@@ -7,20 +7,15 @@ use crate::hit::{HitRecord, Hittable};
 pub struct Sphere {
     pub rad: f32,
     pub pos: Point3,
-    pub color: Color,
 }
 
 impl Sphere {
-    pub fn new(pos: Point3, rad: f32, color: Color) -> Self {
-        Sphere { rad, pos, color }
+    pub fn new(pos: Point3, rad: f32) -> Self {
+        Sphere { rad, pos }
     }
 }
 
 impl Hittable for Sphere {
-    fn get_color(&self) -> Color {
-        self.color
-    }
-
     fn hit(&self, ray: &Ray, t_min: f32, t_max: f32) -> Option<HitRecord> {
         let oc = ray.origin - self.pos;
 
