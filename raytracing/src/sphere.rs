@@ -26,15 +26,18 @@ impl Hittable for Sphere {
 
         if d >= 0.0 {
             let d = d.sqrt();
-            let r = (-h + d) / a;
+            let r = (-h - d) / a;
 
             if (t_min..=t_max).contains(&r) {
-                let p = ray.at(r);
-                return Some(HitRecord {
-                    t: r,
-                    p,
-                    n: (p - self.pos) / self.rad,
-                });
+                let r = (-h + d) / a;
+                if (t_min..=t_max).contains(&r) {
+                    let p = ray.at(r);
+                    return Some(HitRecord {
+                        t: r,
+                        p,
+                        n: (p - self.pos) / self.rad,
+                    });
+                }
             }
         }
 
