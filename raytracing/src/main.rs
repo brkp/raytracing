@@ -7,6 +7,8 @@ mod ray;
 mod scene;
 mod sphere;
 
+use std::time::SystemTime;
+
 use canvas::{color, Canvas};
 use cgmath::{Point3, Vec3};
 
@@ -16,6 +18,12 @@ use crate::scene::{Scene, Viewport};
 use crate::sphere::Sphere;
 
 fn main() {
+    rand::seed(
+        SystemTime::now()
+            .duration_since(SystemTime::UNIX_EPOCH)
+            .unwrap()
+            .as_secs() as u32);
+
     let aspect_ratio: f32 = 16.0 / 9.0;
     let canvas_width: u32 = 1336;
     let canvas_height = (canvas_width as f32 / aspect_ratio) as u32;
@@ -28,11 +36,6 @@ fn main() {
 
     scene.add_shape(Sphere::new(Point3::new(0.0, 0.0, -1.0), 0.5));
     scene.add_shape(Sphere::new(Point3::new(0.0, -100.5, -1.0), 100.0));
-
-    rand::seed(727272727);
-    for i in 0..10 {
-        println!("{}", rand::f64(0.0, 1.0));
-    }
 
     canvas.clear(color::Color::rgb(0x6495ed));
     scene.render(&mut canvas);
