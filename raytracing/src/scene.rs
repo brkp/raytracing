@@ -43,8 +43,8 @@ impl Scene {
         }
     }
 
-    pub fn add_shape(&mut self, shape: impl Hittable + 'static) {
-        self.shapes.push(Box::new(shape));
+    pub fn add_shape(&mut self, shape: Box<dyn Hittable>) {
+        self.shapes.push(shape);
     }
 
     fn trace_ray(&self, ray: &Ray) -> Option<HitRecord> {
